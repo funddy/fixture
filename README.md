@@ -5,8 +5,28 @@ Funddy Fixture
 
 Very simple fixtures library.
 
+Setup and Configuration
+-----------------------
+Add the following to your composer.json file:
+```json
+{
+    "require": {
+        "funddy/fixture": "1.0.*"
+    }
+}
+```
+
+Update the vendor libraries:
+
+    curl -s http://getcomposer.org/installer | php
+    php composer.phar install
+
+Usage
+-----
 ```php
 <?php
+
+require 'vendor/autoload.php';
 
 use Funddy\Component\Fixture\Fixture\Fixture;
 use Funddy\Component\Fixture\Fixture\FixtureLinker;

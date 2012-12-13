@@ -11,20 +11,27 @@ class FixtureLoader extends Observable
 
     public function addFixture(Fixture $fixture)
     {
-        if (!isset($this->fixtures[$fixture->getOrder()])) {
-            $this->fixtures[$fixture->getOrder()] = array();
-        }
-
-        $this->fixtures[$fixture->getOrder()][] = $fixture;
+        $this->fixtures[] = $fixture;
     }
 
     public function loadAll()
     {
-        foreach ($this->fixtures as $fixtureArray) {
-            foreach ($fixtureArray as $fixture) {
-                $this->loadFixture($fixture);
-            }
+        foreach ($this->orderFixtures() as $fixture) {
+            $this->loadFixture($fixture);
         }
+    }
+
+    private function orderFixtures()
+    {
+        $orderedFixtures = $this->fixtures;
+        //@ is for preventing PHP bug https://bugs.php.net/bug.php?id=50688
+        @usort($orderedFixtures, function (Fixture $f1, Fixture $f2) {
+            if ($f1->getOrder() === $f2->getOrder()) {
+                return 0;
+            }
+            return ($f1->getOrder() < $f2->getOrder()) ? -1 : 1;
+        });
+        return $orderedFixtures;
     }
 
     private function loadFixture(Fixture $fixture)

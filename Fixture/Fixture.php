@@ -6,7 +6,7 @@ abstract class Fixture
 {
     private $fixtureLinker;
 
-    public function setFixtureLinker($fixtureLinker)
+    public function setFixtureLinker(FixtureLinker $fixtureLinker)
     {
         $this->fixtureLinker = $fixtureLinker;
     }
@@ -18,6 +18,10 @@ abstract class Fixture
 
     public function getReference($name)
     {
+        if (!$this->fixtureLinker->has($name)) {
+            throw new ReferenceNotFound($name, $this->getName());
+        }
+
         return $this->fixtureLinker->get($name);
     }
 
@@ -27,5 +31,6 @@ abstract class Fixture
     }
 
     abstract public function load();
+
     abstract public function getOrder();
 }

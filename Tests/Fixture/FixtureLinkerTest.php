@@ -19,10 +19,34 @@ class FixtureLinkerTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
-    public function shouldGetAnObjectPreviouslySetted()
+    public function getASetObject()
     {
         $this->fixtureLinker->add(self::IRRELEVANT_FIXTURE_REFERENCE_NAME, self::IRRELEVANT_FIXTURE_OBJECT);
 
-        $this->assertThat(self::IRRELEVANT_FIXTURE_OBJECT, $this->identicalTo($this->fixtureLinker->get(self::IRRELEVANT_FIXTURE_REFERENCE_NAME)));
+        $fixture = $this->fixtureLinker->get(self::IRRELEVANT_FIXTURE_REFERENCE_NAME);
+
+        $this->assertThat($fixture, $this->identicalTo(self::IRRELEVANT_FIXTURE_OBJECT));
+    }
+
+    /**
+     * @test
+     */
+    public function hasName()
+    {
+        $this->fixtureLinker->add(self::IRRELEVANT_FIXTURE_REFERENCE_NAME, self::IRRELEVANT_FIXTURE_OBJECT);
+
+        $has = $this->fixtureLinker->has(self::IRRELEVANT_FIXTURE_REFERENCE_NAME);
+
+        $this->assertThat($has, $this->isTrue());
+    }
+
+    /**
+     * @test
+     */
+    public function hasNoName()
+    {
+        $has = $this->fixtureLinker->has(self::IRRELEVANT_FIXTURE_REFERENCE_NAME);
+
+        $this->assertThat($has, $this->isFalse());
     }
 }

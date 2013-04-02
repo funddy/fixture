@@ -7,9 +7,6 @@ use Mockery as m;
 
 class FixtureLoaderTest extends \PHPUnit_Framework_TestCase
 {
-    const IRRELEVANT_FIXTURE_NAME = 'XXXX';
-    const IRRELEVANT_FIXTURE_NAME2 = 'XXXXX';
-
     private $fixtureLoader;
 
     protected function setUp()
@@ -22,11 +19,11 @@ class FixtureLoaderTest extends \PHPUnit_Framework_TestCase
      */
     public function shouldNotifyObserversWhileLoadFixtures()
     {
-        $fixture = $this->createFixtureMockForLoaderWithNameAndOrder(self::IRRELEVANT_FIXTURE_NAME, 0);
+        $fixture = $this->createFixtureMockForLoaderWithNameAndOrder('fixture1', 0);
         $this->fixtureLoader->addFixture($fixture);
         $this->fixtureLoader->loadAll();
 
-        $this->assertThat(self::IRRELEVANT_FIXTURE_NAME, $this->identicalTo($this->fixtureLoader->lastLoadedFixtureName()));
+        $this->assertThat('fixture1', $this->identicalTo($this->fixtureLoader->lastLoadedFixtureName()));
     }
 
     private function createFixtureMockForLoaderWithNameAndOrder($name, $order)
@@ -34,7 +31,7 @@ class FixtureLoaderTest extends \PHPUnit_Framework_TestCase
         $fixture = m::mock('Funddy\Component\Fixture\Fixture\Fixture');
         $fixture->shouldReceive('load')->withNoArgs()->once();
         $fixture->shouldReceive('getName')->withNoArgs()->once()->andReturn($name);
-        $fixture->shouldReceive('getOrder')->withNoArgs()->times(3)->andReturn($order);
+        $fixture->shouldReceive('getOrder')->withNoArgs()->andReturn($order);
 
         return $fixture;
     }
@@ -45,13 +42,13 @@ class FixtureLoaderTest extends \PHPUnit_Framework_TestCase
     public function fixturesShouldBeLoadedInOrder()
     {
         $this->fixtureLoader->addFixture(
-            $this->createFixtureMockForLoaderWithNameAndOrder(self::IRRELEVANT_FIXTURE_NAME, 0)
+            $this->createFixtureMockForLoaderWithNameAndOrder('fixture1', 0)
         );
         $this->fixtureLoader->addFixture(
-            $this->createFixtureMockForLoaderWithNameAndOrder(self::IRRELEVANT_FIXTURE_NAME2, 1)
+            $this->createFixtureMockForLoaderWithNameAndOrder('fixture2', 1)
         );
         $this->fixtureLoader->loadAll();
 
-        $this->assertThat(self::IRRELEVANT_FIXTURE_NAME2, $this->identicalTo($this->fixtureLoader->lastLoadedFixtureName()));
+        $this->assertThat('fixture2', $this->identicalTo($this->fixtureLoader->lastLoadedFixtureName()));
     }
 }

@@ -4,7 +4,7 @@
     "keywords": ["fixture"],
     "homepage": "https://github.com/funddy/fixture",
     "license": "MIT",
-    "minimum-stability": "dev",
+    "minimum-stability": "stable",
     "authors": [
         {
             "name": "Keyvan Akbary",

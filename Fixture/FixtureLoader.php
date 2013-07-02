@@ -1,17 +1,22 @@
 <?php
 
-namespace Funddy\Component\Fixture\Fixture;
+namespace Funddy\Fixture\Fixture;
 
-use Funddy\Component\Fixture\Observer\Observable;
-
-class FixtureLoader extends Observable
+class FixtureLoader
 {
+    protected $observers = array();
     private $fixtures;
-    private $lastLoadedFixtureName;
 
     public function addFixture(Fixture $fixture)
     {
         $this->fixtures[] = $fixture;
+    }
+
+    public function attach($observer)
+    {
+        if (!in_array($observer, $this->observers)) {
+            $this->observers[] = $observer;
+        }
     }
 
     public function loadAll()
@@ -37,12 +42,13 @@ class FixtureLoader extends Observable
     private function loadFixture(Fixture $fixture)
     {
         $fixture->load();
-        $this->lastLoadedFixtureName = $fixture->getName();
-        $this->notify();
+        $this->notifyFixtureLoaded($fixture->getName());
     }
 
-    public function lastLoadedFixtureName()
+    private function notifyFixtureLoaded($fixtureName)
     {
-        return $this->lastLoadedFixtureName;
+        foreach ($this->observers as $observer) {
+            $observer->fixtureLoaded($fixtureName);
+        }
     }
 }

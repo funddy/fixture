@@ -11,7 +11,7 @@ Add the following to your composer.json file:
 ```json
 {
     "require": {
-        "funddy/fixture": "1.0.*"
+        "funddy/fixture": "2.0.*"
     }
 }
 ```
@@ -28,9 +28,9 @@ Usage
 
 require 'vendor/autoload.php';
 
-use Funddy\Component\Fixture\Fixture\Fixture;
-use Funddy\Component\Fixture\Fixture\FixtureLinker;
-use Funddy\Component\Fixture\Fixture\FixtureLoader;
+use Funddy\Fixture\Fixture\Fixture;
+use Funddy\Fixture\Fixture\FixtureLinker;
+use Funddy\Fixture\Fixture\FixtureLoader;
 
 class HelloFixture extends Fixture
 {

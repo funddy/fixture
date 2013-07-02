@@ -2,7 +2,7 @@
 
 namespace Funddy\Module\CoreModule\Tests\Application\Fixture;
 
-use Funddy\Component\Fixture\Fixture\Fixture;
+use Funddy\Fixture\Fixture\Fixture;
 use Mockery as m;
 
 class ConcreteFixture extends Fixture {
@@ -24,7 +24,7 @@ class FixtureTest extends \PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $this->fixtureLinkerMock = m::mock('\Funddy\Component\Fixture\Fixture\FixtureLinker');
+        $this->fixtureLinkerMock = m::mock('Funddy\Fixture\Fixture\FixtureLinker');
         $this->fixture = new ConcreteFixture();
         $this->fixture->setFixtureLinker($this->fixtureLinkerMock);
     }
@@ -57,7 +57,7 @@ class FixtureTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @test
-     * @expectedException Funddy\Component\Fixture\Fixture\ReferenceNotFound
+     * @expectedException Funddy\Fixture\Fixture\ReferenceNotFound
      */
     public function throwsExceptionIfReferenceWasNotFound()
     {

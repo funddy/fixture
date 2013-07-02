@@ -2,7 +2,7 @@
 
 namespace Funddy\Module\CoreModule\Tests\Application\Fixture;
 
-use Funddy\Component\Fixture\Fixture\FixtureLinker;
+use Funddy\Fixture\Fixture\FixtureLinker;
 
 class FixtureLinkerTest extends \PHPUnit_Framework_TestCase
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace Funddy\Component\Fixture\Fixture;
+namespace Funddy\Fixture\Fixture;
 
 abstract class Fixture
 {
